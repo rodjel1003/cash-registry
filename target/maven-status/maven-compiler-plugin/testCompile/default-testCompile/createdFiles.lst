@@ -1,0 +1,6 @@
+com\rcuebillas\cashregistry\service\TestCashRegistryFactory.class
+com\rcuebillas\cashregistry\service\TestShowCashService.class
+com\rcuebillas\cashregistry\service\TestPutCashService.class
+com\rcuebillas\cashregistry\service\TestTakeCashService.class
+com\rcuebillas\cashregistry\service\TestChangeCashService.class
+com\rcuebillas\cashregistry\service\TestUnknownCashService.class

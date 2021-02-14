@@ -1,5 +1,6 @@
 package com.rcuebillas.cashregistry.service;
 
+import com.rcuebillas.cashregistry.contant.Constants;
 import com.rcuebillas.cashregistry.model.Cash;
 import com.rcuebillas.cashregistry.util.CashUtil;
 import com.rcuebillas.cashregistry.repository.CashRepository;
@@ -24,13 +25,13 @@ public class PutCashServiceImpl implements CashRegistryService {
 
     @Override
     public String execute(String[] input) {
-        logger.info("Executing Put Cash");
+        logger.info(Constants.EXECUTING_PUT_CASH);
         if (input.length < 6) {
-            return "input is less than required number of parameters";
+            return Constants.INPUT_IS_LESS_THAN_REQUIRED_NUMBER_OF_PARAMETERS;
         }
 
         if (input.length > 6) {
-            return "input is more than required number of parameters";
+            return Constants.INPUT_IS_MORE_THAN_REQUIRED_NUMBER_OF_PARAMETERS;
         }
         List<Cash> cashes = CashUtil.generateCashes(input);
         cashRepository.saveAll(cashes);

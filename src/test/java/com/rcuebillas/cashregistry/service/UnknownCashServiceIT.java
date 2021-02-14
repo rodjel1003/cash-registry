@@ -4,18 +4,14 @@ import com.rcuebillas.cashregistry.contant.Constants;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@ExtendWith(MockitoExtension.class)
-class TestUnknownCashService {
+@SpringBootTest
+public class UnknownCashServiceIT {
 
+    @Autowired
     private CashRegistryService unknownCashServiceImpl;
-
-    @BeforeEach
-    void setUp() {
-        unknownCashServiceImpl = new UnknownCashServiceImpl();
-    }
 
     @Test
     void testUnknown() {

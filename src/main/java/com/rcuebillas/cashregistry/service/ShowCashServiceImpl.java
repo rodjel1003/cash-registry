@@ -1,5 +1,6 @@
 package com.rcuebillas.cashregistry.service;
 
+import com.rcuebillas.cashregistry.contant.Constants;
 import com.rcuebillas.cashregistry.repository.CashRepository;
 import com.rcuebillas.cashregistry.model.Bill;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ public class ShowCashServiceImpl implements CashRegistryService {
 
     @Override
     public String execute(String[] input) {
-        logger.info("Executing Show Cash");
+        logger.info(Constants.EXECUTING_SHOW_CASH);
         StringBuilder sb = new StringBuilder();
         int totalValue = 0;
 
@@ -29,6 +30,6 @@ public class ShowCashServiceImpl implements CashRegistryService {
             totalValue += bill.getValue() * count;
         }
 
-        return String.format("%s%s %s", "$", totalValue, sb.toString().trim());
+        return String.format(Constants.S_S_S, Constants.DOLLAR, totalValue, sb.toString().trim());
     }
 }

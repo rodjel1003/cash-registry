@@ -1,5 +1,6 @@
 package com.rcuebillas.cashregistry.service;
 
+import com.rcuebillas.cashregistry.model.Command;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,30 +37,30 @@ class TestCashRegistryFactory {
     @Test
     void testShowService() {
         String command = "show";
-        Assertions.assertThat(cashRegistryFactoryImpl.getCashRegistry(command)).isEqualTo(showCashServiceImpl);
+        Assertions.assertThat(cashRegistryFactoryImpl.getCashRegistry(Command.getByName(command))).isEqualTo(showCashServiceImpl);
     }
 
     @Test
     void testChangeService() {
         String command = "change";
-        Assertions.assertThat(cashRegistryFactoryImpl.getCashRegistry(command)).isEqualTo(changeCashServiceImpl);
+        Assertions.assertThat(cashRegistryFactoryImpl.getCashRegistry(Command.getByName(command))).isEqualTo(changeCashServiceImpl);
     }
 
     @Test
     void testPutService() {
         String command = "put";
-        Assertions.assertThat(cashRegistryFactoryImpl.getCashRegistry(command)).isEqualTo(putCashServiceImpl);
+        Assertions.assertThat(cashRegistryFactoryImpl.getCashRegistry(Command.getByName(command))).isEqualTo(putCashServiceImpl);
     }
 
     @Test
     void testTakeService() {
         String command = "take";
-        Assertions.assertThat(cashRegistryFactoryImpl.getCashRegistry(command)).isEqualTo(takeCashServiceImpl);
+        Assertions.assertThat(cashRegistryFactoryImpl.getCashRegistry(Command.getByName(command))).isEqualTo(takeCashServiceImpl);
     }
 
     @Test
     void testUnknownService() {
         String command = "abcdefg";
-        Assertions.assertThat(cashRegistryFactoryImpl.getCashRegistry(command)).isEqualTo(unknownCashServiceImpl);
+        Assertions.assertThat(cashRegistryFactoryImpl.getCashRegistry(Command.getByName(command))).isEqualTo(unknownCashServiceImpl);
     }
 }

@@ -1,5 +1,6 @@
 package com.rcuebillas.cashregistry.service;
 
+import com.rcuebillas.cashregistry.contant.Constants;
 import com.rcuebillas.cashregistry.model.Cash;
 import com.rcuebillas.cashregistry.repository.CashRepository;
 import org.assertj.core.api.Assertions;
@@ -35,9 +36,9 @@ class TestTakeCashService {
     @Test
     void testInputMoreThan6() {
         String[] input = "take 1 2 3 4 5 6".split(" ");
-        String expected = "input is more than required number of parameters";
 
-        Assertions.assertThat(takeCashServiceImpl.execute(input)).isEqualTo(expected);
+        Assertions.assertThat(takeCashServiceImpl.execute(input))
+                .isEqualTo(Constants.INPUT_IS_MORE_THAN_REQUIRED_NUMBER_OF_PARAMETERS);
         verify(cashRepository, never()).saveAll(anyList());
         verify(showCashServiceImpl, never()).execute(input);
     }
@@ -45,9 +46,8 @@ class TestTakeCashService {
     @Test
     void testInputLessThan6() {
         String[] input = "take 1 2 3 4".split(" ");
-        String expected = "input is less than required number of parameters";
 
-        Assertions.assertThat(takeCashServiceImpl.execute(input)).isEqualTo(expected);
+        Assertions.assertThat(takeCashServiceImpl.execute(input)).isEqualTo(Constants.INPUT_IS_LESS_THAN_REQUIRED_NUMBER_OF_PARAMETERS);
         verify(cashRepository, never()).saveAll(anyList());
         verify(showCashServiceImpl, never()).execute(input);
     }

@@ -1,5 +1,6 @@
 package com.rcuebillas.cashregistry.util;
 
+import com.rcuebillas.cashregistry.contant.Constants;
 import com.rcuebillas.cashregistry.model.Bill;
 import com.rcuebillas.cashregistry.model.Cash;
 import org.slf4j.Logger;
@@ -26,8 +27,8 @@ public class CashUtil {
                     cashes.add(new Cash(Bill.values()[i-1].getValue()));
                 }
             } catch (NumberFormatException e) {
-                logger.debug("{} is not a valid number", inputArray[i]);
-                System.out.printf("%s is not a valid number", inputArray[i]);
+                logger.debug(Constants.NOT_A_VALID_NUMBER, inputArray[i]);
+                System.out.printf(Constants.S_NOT_A_VALID_NUMBER, inputArray[i]);
                 System.out.println();
                 return Collections.emptyList();
             }

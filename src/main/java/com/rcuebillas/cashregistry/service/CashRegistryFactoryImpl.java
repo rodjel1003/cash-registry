@@ -1,5 +1,7 @@
 package com.rcuebillas.cashregistry.service;
 
+import com.rcuebillas.cashregistry.contant.Constants;
+import com.rcuebillas.cashregistry.model.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,16 +28,16 @@ public class CashRegistryFactoryImpl implements CashRegistryFactory {
     }
 
     @Override
-    public CashRegistryService getCashRegistry(String command) {
-        logger.info("Getting CashRegistryService with command {}", command);
-        switch (command.toUpperCase()) {
-            case "SHOW":
+    public CashRegistryService getCashRegistry(Command command) {
+        logger.info(Constants.GETTING_CASH_REGISTRY_SERVICE_WITH_COMMAND, command);
+        switch (command) {
+            case SHOW:
                 return showCashServiceImpl;
-            case "PUT":
+            case PUT:
                 return putCashServiceImpl;
-            case "TAKE":
+            case TAKE:
                 return takeCashServiceImpl;
-            case "CHANGE":
+            case CHANGE:
                 return changeCashServiceImpl;
             default:
                 return unknownCashServiceImpl;

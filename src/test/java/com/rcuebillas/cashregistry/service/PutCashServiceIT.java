@@ -3,29 +3,23 @@ package com.rcuebillas.cashregistry.service;
 import com.rcuebillas.cashregistry.contant.Constants;
 import com.rcuebillas.cashregistry.repository.CashRepository;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.*;
+@SpringBootTest
+public class PutCashServiceIT {
 
-@ExtendWith(MockitoExtension.class)
-class TestPutCashService {
-
+    @Autowired
     private CashRegistryService putCashServiceImpl;
 
-    @Mock
+    @Autowired
     private CashRepository cashRepository;
 
-    @Mock
-    private CashRegistryService showCashServiceImpl;
-
-    @BeforeEach
-    void setUp() {
-        putCashServiceImpl = new PutCashServiceImpl(cashRepository, showCashServiceImpl);
+    @AfterEach
+    void tearDown() {
+        cashRepository.deleteAll();
     }
 
     @Test
@@ -34,8 +28,6 @@ class TestPutCashService {
 
         Assertions.assertThat(putCashServiceImpl.execute(input))
                 .isEqualTo(Constants.INPUT_IS_MORE_THAN_REQUIRED_NUMBER_OF_PARAMETERS);
-        verify(cashRepository, never()).saveAll(anyList());
-        verify(showCashServiceImpl, never()).execute(input);
     }
 
     @Test
@@ -44,8 +36,6 @@ class TestPutCashService {
 
         Assertions.assertThat(putCashServiceImpl.execute(input))
                 .isEqualTo(Constants.INPUT_IS_LESS_THAN_REQUIRED_NUMBER_OF_PARAMETERS);
-        verify(cashRepository, never()).saveAll(anyList());
-        verify(showCashServiceImpl, never()).execute(input);
     }
 
     @Test
@@ -53,11 +43,7 @@ class TestPutCashService {
         String[] input = "put 1 2 3 4 f".split(" ");
         String expected = "$0 0 0 0 0 0";
 
-        doReturn(expected).when(showCashServiceImpl).execute(input);
-
         Assertions.assertThat(putCashServiceImpl.execute(input)).isEqualTo(expected);
-        verify(cashRepository).saveAll(anyList());
-        verify(showCashServiceImpl).execute(input);
     }
 
     @Test
@@ -65,10 +51,6 @@ class TestPutCashService {
         String[] input = "put 1 2 3 4 5".split(" ");
         String expected = "$68 1 2 3 4 5";
 
-        doReturn(expected).when(showCashServiceImpl).execute(input);
-
         Assertions.assertThat(putCashServiceImpl.execute(input)).isEqualTo(expected);
-        verify(cashRepository).saveAll(anyList());
-        verify(showCashServiceImpl).execute(input);
     }
 }

@@ -1,5 +1,7 @@
 package com.rcuebillas.cashregistry.service;
 
+import com.rcuebillas.cashregistry.model.Command;
+
 public interface CashRegistryFactory {
-    CashRegistryService getCashRegistry(String command);
+    CashRegistryService getCashRegistry(Command command);
 }

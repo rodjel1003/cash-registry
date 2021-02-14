@@ -2,4 +2,4 @@ spring:
   main:
     banner-mode: "off"
 
-testing: "false"
+testing: "true"

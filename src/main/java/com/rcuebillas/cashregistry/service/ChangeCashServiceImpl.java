@@ -1,5 +1,6 @@
 package com.rcuebillas.cashregistry.service;
 
+import com.rcuebillas.cashregistry.contant.Constants;
 import com.rcuebillas.cashregistry.model.Bill;
 import com.rcuebillas.cashregistry.model.Cash;
 import com.rcuebillas.cashregistry.repository.CashRepository;
@@ -24,23 +25,23 @@ public class ChangeCashServiceImpl implements CashRegistryService{
 
     @Override
     public String execute(String[] input) {
-        logger.info("Executing Change Cash");
+        logger.info(Constants.EXECUTING_CHANGE_CASH);
         int amount;
         if(input.length < 2) {
-            return "input is less than required number of parameters";
+            return Constants.INPUT_IS_LESS_THAN_REQUIRED_NUMBER_OF_PARAMETERS;
         }
         if(input.length > 2) {
-            return "input is more than required number of parameters";
+            return Constants.INPUT_IS_MORE_THAN_REQUIRED_NUMBER_OF_PARAMETERS;
         }
 
         try {
             amount = Integer.parseInt(input[1]);
         } catch (NumberFormatException e) {
-            return String.format("%s is not a valid number", input[1]);
+            return String.format(Constants.S_NOT_A_VALID_NUMBER, input[1]);
         }
 
         if(amount == 0) {
-            return "Amount of change is 0, no need to dispense bills";
+            return Constants.AMOUNT_OF_CHANGE_IS_0;
         }
 
         List<Cash> cashes = new ArrayList<>();
@@ -51,7 +52,7 @@ public class ChangeCashServiceImpl implements CashRegistryService{
 
         List<Cash> toRemoveCashes = changeUtil(cashes, cashesFromRepo, amount);
         if(toRemoveCashes.isEmpty()) {
-            return "Sorry, not enough bills for your change";
+            return Constants.NOT_ENOUGH_BILLS;
         }
 
         cashRepository.deleteAll(toRemoveCashes);

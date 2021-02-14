@@ -1,5 +1,6 @@
 package com.rcuebillas.cashregistry.service;
 
+import com.rcuebillas.cashregistry.contant.Constants;
 import com.rcuebillas.cashregistry.model.Cash;
 import com.rcuebillas.cashregistry.repository.CashRepository;
 import org.assertj.core.api.Assertions;
@@ -32,9 +33,8 @@ class TestChangeCashService {
     @Test
     void testInputMoreThanTwo() {
         String[] input = "change 1 2".split(" ");
-        String expected = "input is more than required number of parameters";
 
-        Assertions.assertThat(changeCashServiceImpl.execute(input)).isEqualTo(expected);
+        Assertions.assertThat(changeCashServiceImpl.execute(input)).isEqualTo(Constants.INPUT_IS_MORE_THAN_REQUIRED_NUMBER_OF_PARAMETERS);
         verify(cashRepository, never()).findAll();
         verify(cashRepository, never()).deleteAll(anyList());
     }
@@ -42,9 +42,8 @@ class TestChangeCashService {
     @Test
     void testInputLessThanTwo() {
         String[] input = "change".split(" ");
-        String expected = "input is less than required number of parameters";
 
-        Assertions.assertThat(changeCashServiceImpl.execute(input)).isEqualTo(expected);
+        Assertions.assertThat(changeCashServiceImpl.execute(input)).isEqualTo(Constants.INPUT_IS_LESS_THAN_REQUIRED_NUMBER_OF_PARAMETERS);
         verify(cashRepository, never()).findAll();
         verify(cashRepository, never()).deleteAll(anyList());
     }
@@ -52,7 +51,7 @@ class TestChangeCashService {
     @Test
     void testInputNotANumber() {
         String[] input = "change f".split(" ");
-        String expected = "f is not a valid number";
+        String expected = String.format(Constants.S_NOT_A_VALID_NUMBER, "f");
 
         Assertions.assertThat(changeCashServiceImpl.execute(input)).isEqualTo(expected);
         verify(cashRepository, never()).findAll();
@@ -62,9 +61,8 @@ class TestChangeCashService {
     @Test
     void testAmountIsZero() {
         String[] input = "change 0".split(" ");
-        String expected = "Amount of change is 0, no need to dispense bills";
 
-        Assertions.assertThat(changeCashServiceImpl.execute(input)).isEqualTo(expected);
+        Assertions.assertThat(changeCashServiceImpl.execute(input)).isEqualTo(Constants.AMOUNT_OF_CHANGE_IS_0);
         verify(cashRepository, never()).findAll();
         verify(cashRepository, never()).deleteAll(anyList());
     }
@@ -72,11 +70,10 @@ class TestChangeCashService {
     @Test
     void testNotEnoughBills() {
         String[] input = "change 2".split(" ");
-        String expected = "Sorry, not enough bills for your change";
 
         doReturn(Collections.singletonList(new Cash(1))).when(cashRepository).findAll();
 
-        Assertions.assertThat(changeCashServiceImpl.execute(input)).isEqualTo(expected);
+        Assertions.assertThat(changeCashServiceImpl.execute(input)).isEqualTo(Constants.NOT_ENOUGH_BILLS);
         verify(cashRepository).findAll();
         verify(cashRepository, never()).deleteAll(anyList());
     }
